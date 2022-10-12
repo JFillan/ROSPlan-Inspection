@@ -1,0 +1,11 @@
+rosplan_demo_waypoints:
+    # waypoints reference frame
+    waypoint_frameid: map
+
+    # waypoint 2D coordinates: x, y, theta
+    wp0: [0.0, 0.0, 0.0]    # Spawn
+    wp1: [3.5, -2.8, 0.0]   # Charger 1
+    wp2: [-2.7, 7.2, 0.0]   # Charger 2
+    wp3: [1.0, 2.0, 0.0]    # Object 1
+    wp4: [-5.4, 4.0, 0.0]   # Object 2
+    wp5: [-7.0, -2.2, 0.0]  # Object 3
