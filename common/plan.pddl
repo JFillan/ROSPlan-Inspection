@@ -1,23 +1,14 @@
-POPF, Release 2
-By releasing this code we imply no warranty as to its reliability
-and its use is entirely at your own risk.
-
-Usage: /home/jonas/catkin_ws/src/rosplan/rosplan_planning_system/common/bin/popf [OPTIONS] domainfile problemfile [planfile, if -r specified]
-
-Options are: 
-
-	-citation	Display citation to relevant conference paper (ICAPS 2010);
-	-b		Disable best-first search - if EHC fails, abort;
-	-E		Skip EHC: go straight to best-first search;
-	-e		Use standard EHC instead of steepest descent;
-	-h		Disable helpful-action pruning;
-	-k		Disable compression-safe action detection;
-	-c		Disable the tie-breaking in RPG that favour actions that slot into the partial order earlier;
-	-S		Sort initial layer facts in RPG by availability order (only use if using -c);
-	-m		Disable the tie-breaking in search that favours plans with shorter makespans;
-	-F		Full FF helpful actions (rather than just those in the RP applicable in the current state);
-	-r		Read in a plan instead of planning;
-	-T		Rather than building a partial order, build a total-order
-	-n		Optimise, finding many solutions;
-	-v<n>		Verbose to degree n (n defaults to 1 if not specified).
-	-L<n>		LP verbose to degree n (n defaults to 1 if not specified).
+Number of literals: 12
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%] [120%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%] [120%]
+[01;34mNo analytic limits found, not considering limit effects of goal-only operators[00m
+All the ground actions in this problem are compression-safe
+Initial heuristic = 4.000
+b (3.000 | 60.000)b (2.000 | 120.001)b (1.000 | 180.002);;;; Solution Found
+; States evaluated: 5
+; Cost: 240.003
+; Time 0.00
+0.000: (goto_waypoint turtlebot wp0 wp1)  [60.000]
+60.001: (goto_waypoint turtlebot wp1 wp2)  [60.000]
+120.002: (goto_waypoint turtlebot wp2 wp3)  [60.000]
+180.003: (goto_waypoint turtlebot wp3 wp4)  [60.000]

@@ -5,10 +5,17 @@
     kenny - robot
 )
 (:init
-    (= (charge kenny) 0)
     (robot_at kenny wp0)
+
+
+
     (docked kenny)
+
+
     (dock_at wp0)
+
+    (= (charge kenny) 0)
+
 )
 (:goal (and
     (visited wp0)
@@ -17,5 +24,6 @@
     (visited wp1)
     (visited wp4)
     (docked kenny)
-    (> (charge kenny) 0)
-)))
+    (>  (charge kenny) 0)
+))
+)

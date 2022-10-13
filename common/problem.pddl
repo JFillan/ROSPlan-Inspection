@@ -6,12 +6,13 @@
 )
 (:init
     (robot_at turtlebot wp0)
-)
 
+
+)
 (:goal (and
-    (visited wp2)
     (visited wp3)
     (visited wp1)
     (visited wp4)
+    (visited wp2)
 ))
 )
