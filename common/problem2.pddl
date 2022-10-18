@@ -6,9 +6,12 @@
 )
 (:init
     (robot_at turtlebot wp0)
-    (undocked turtlebot)
-    (dock_at wp2)
 
+
+    (undocked turtlebot)
+
+
+    (dock_at wp2)
 
 )
 (:goal (and

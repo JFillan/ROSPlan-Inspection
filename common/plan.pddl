@@ -1,14 +1,24 @@
-Number of literals: 12
-Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%] [120%]
-Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%] [110%] [120%]
-[01;34mNo analytic limits found, not considering limit effects of goal-only operators[00m
-All the ground actions in this problem are compression-safe
-Initial heuristic = 4.000
-b (3.000 | 60.000)b (2.000 | 120.001)b (1.000 | 180.002);;;; Solution Found
-; States evaluated: 5
-; Cost: 240.003
-; Time 0.00
-0.000: (goto_waypoint turtlebot wp0 wp1)  [60.000]
-60.001: (goto_waypoint turtlebot wp1 wp2)  [60.000]
-120.002: (goto_waypoint turtlebot wp2 wp3)  [60.000]
-180.003: (goto_waypoint turtlebot wp3 wp4)  [60.000]
+
+usage of ff:
+
+OPTIONS   DESCRIPTIONS
+
+-p <str>    Path for operator and fact file
+-o <str>    Operator file name
+-f <str>    Fact file name
+
+-r <int>    Random seed [used for random restarts; preset: 0]
+
+-s <int>    Search configuration [preset: s=5]; '+H': helpful actions pruning
+      0     Standard-FF: EHC+H then BFS (cost minimization: NO)
+      1     BFS (cost minimization: NO)
+      2     BFS+H (cost minimization: NO)
+      3     Weighted A* (cost minimization: YES)
+      4     A*epsilon (cost minimization: YES)
+      5     EHC+H then A*epsilon (cost minimization: YES)
+-w <num>    Set weight w for search configs 3,4,5 [preset: w=5]
+
+-C          Do NOT use cost-minimizing relaxed plans for options 3,4,5
+
+-b <float>  Fixed upper bound on solution cost (prune based on g+hmax); active only with cost minimization
+

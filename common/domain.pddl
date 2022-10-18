@@ -10,6 +10,9 @@
 (:predicates
 	(robot_at ?v - robot ?wp - waypoint)
 	(visited ?wp - waypoint)
+	(undocked ?v - robot)
+	(docked ?v - robot)
+	(dock_at ?wp - waypoint)
 
 )
 
@@ -24,4 +27,28 @@
 		(at end (visited ?to))
 		(at end (robot_at ?v ?to)))
 )
+
+(:durative-action dock
+	:parameters (?v - robot ?wp - waypoint)
+	:duration ( = ?duration 30)
+	:condition (and
+		(over all (dock_at ?wp))
+		(at start (robot_at ?v ?wp))
+		(at start (undocked ?v)))
+	:effect (and
+		(at end (docked ?v))
+		(at start (not (undocked ?v))))
+)
+
+(:durative-action undock
+	:parameters (?v - robot ?wp - waypoint)
+	:duration ( = ?duration 10)
+	:condition (and
+		(over all (dock_at ?wp))
+		(at start (docked ?v)))
+	:effect (and
+		(at start (not (docked ?v)))
+		(at end (undocked ?v)))
+)
+
 )

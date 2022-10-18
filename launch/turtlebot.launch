@@ -17,8 +17,6 @@
         <arg name="open_rviz" value="false"/>
     </include>
     
-    <!-- Loading waypoints into ROS Parameters-->
-    <rosparam command="load" file="$(find inspection)/config/waypoints.yaml" />
 
     <!-- roadmap (waypoint generation) -->
     <include file="$(find rosplan_interface_mapping)/launch/rosplan_roadmap_server.launch" />
