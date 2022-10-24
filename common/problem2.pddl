@@ -13,6 +13,7 @@
 
     (dock_at wp2)
 
+
 )
 (:goal (and
     (visited wp3)

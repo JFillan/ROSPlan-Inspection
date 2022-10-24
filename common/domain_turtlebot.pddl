@@ -13,7 +13,7 @@
 	(undocked ?v - robot)
 	(docked ?v - robot)
 	(localised ?v - robot)
-	(dock_at ?wp - waypoint)
+	(dock_at ?wp - waypoint)z
 )
 
 (:functions

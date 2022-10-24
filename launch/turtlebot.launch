@@ -42,4 +42,10 @@
     <!-- visualisation of robot sensor data -->
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rosplan_turtlebot3_demo)/config/turtlebot3.rviz" />
 
+
+	<arg name="main_rate" default="10"/>
+	<node name="rosplan_sensing_interface" pkg="rosplan_sensing_interface" type="sensing_interface.py" respawn="false" output="screen">
+		<rosparam command="load" file="$(find inspection)/config/sensors.yaml" />
+		<param name="main_rate" value="$(arg main_rate)" />
+	</node>
 </launch>

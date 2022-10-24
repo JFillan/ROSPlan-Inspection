@@ -13,7 +13,7 @@
 	(undocked ?v - robot)
 	(docked ?v - robot)
 	(dock_at ?wp - waypoint)
-
+	(battery_charged ?v - robot)
 )
 
 ;; Move to any waypoint, avoiding terrain
