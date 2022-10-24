@@ -1,22 +1,22 @@
 <?xml version="1.0"?>
 <launch>
 
-    <!-- ROSPlan turtlebot3 demo with ROSPlan -->
+    <!-- Turtlebot3 demo with ROSPlan -->
 
 
+    <!-- Arguments -->
     <arg name="map_file" default="$(find inspection)/maps/map.yaml"/>
     <arg name="gazebo_gui" default="true"/>
 
-    <!-- turtlebot3 simulation world-->
+    <!-- Simulation world-->
     <include file="$(find inspection)/launch/inspection_world.launch" >
     </include>
 
-    <!-- turtlebot3 navigation: move base, amcl (localisation) -->
+    <!-- Turtlebot3 navigation: move base, amcl (localisation) -->
     <include file="$(find turtlebot3_navigation)/launch/turtlebot3_navigation.launch" >
         <arg name="map_file" value="$(arg map_file)"/>
         <arg name="open_rviz" value="false"/>
     </include>
-    
 
     <!-- roadmap (waypoint generation) -->
     <include file="$(find rosplan_interface_mapping)/launch/rosplan_roadmap_server.launch" />
