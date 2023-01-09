@@ -2,6 +2,7 @@
 
 # A simple node that takes in the cmd_vel topic and calculates a power consumption from its x component.
 # Power consumption is published for the battery plugin to use.
+# This is not a realistic value for power consumption, only a simple simulation
 
 import rospy
 from geometry_msgs.msg import Twist
@@ -9,10 +10,10 @@ from std_msgs.msg import Float32
 
 
 def talker(data):
-    pub = rospy.Publisher('battery/consumer/0', Float32, queue_size=10)
+    pub = rospy.Publisher('battery/consumer/0', Float32, queue_size=10) # Publish to the power consumption topic
     rate = rospy.Rate(10) # 10hz
     
-    pub.publish(5*abs(data.linear.x)) # Ajust to fit wanted power consumption
+    pub.publish(200*abs(data.linear.x)) # Ajust to fit wanted power consumption
     rate.sleep()
 
 

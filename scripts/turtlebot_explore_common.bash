@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# add robot kenny instance + goals: visit all waypoint instances
+# add robot turtlebot instance
 echo "Adding initial state and goals to knowledge base.";
 param_type="update_type:
 - 0";
 param="knowledge:
 - knowledge_type: 0
   instance_type: 'robot'
-  instance_name: 'kenny'
+  instance_name: 'turtlebot'
   attribute_name: ''
   function_value: 0.0";
 param_type="$param_type
@@ -18,28 +18,25 @@ param="$param
   instance_name: ''
   attribute_name: 'robot_at'
   values:
-  - {key: 'r', value: 'kenny'}
+  - {key: 'v', value: 'turtlebot'}
   - {key: 'wp', value: 'wp0'}
   function_value: 0.0";
-for i in $(rosservice call /rosplan_knowledge_base/state/instances "type_name: 'waypoint'" | grep -ohP "wp\d+")
-do
 param_type="$param_type
-- 1"
+- 0";
 param="$param
 - knowledge_type: 1
   instance_type: ''
   instance_name: ''
-  attribute_name: 'visited'
+  attribute_name: 'dock_at'
   values:
-  - {key: 'wp', value: '$i'}
-  function_value: 0.0"
-done;
+  - {key: 'wp', value: 'wp2'}
+  function_value: 0.0";
 
 rosservice call /rosplan_knowledge_base/update_array "
 $param_type
 $param"
 
-# NOTE: robot_at(kenny wp0) gets added by the mapping interface
+# NOTE: robot_at(turtlebot wp0) gets added by the mapping interface
 
 # automatically generate PDDL problem from KB snapshot (e.g. fetch knowledge from KB and create problem.pddl)
 echo "Calling problem generator.";

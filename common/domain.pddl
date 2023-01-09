@@ -16,12 +16,20 @@
 	(battery_charged ?v - robot)
 )
 
+(:functions
+	(distance ?wp1 ?wp2 - waypoint) 
+	(speed ?v - robot)
+)
+
+
 ;; Move to any waypoint, avoiding terrain
 (:durative-action goto_waypoint
 	:parameters (?v - robot ?from ?to - waypoint)
-	:duration ( = ?duration 60)
+	:duration (= ?duration (/ (distance ?from ?to) 
+							  (speed ?v)))
 	:condition (and 
-		(at start (robot_at ?v ?from)))
+		(at start (robot_at ?v ?from))
+		(over all (battery_charged ?v)))
 	:effect (and
 		(at start (not (robot_at ?v ?from)))
 		(at end (visited ?to))
@@ -49,6 +57,24 @@
 	:effect (and
 		(at start (not (docked ?v)))
 		(at end (undocked ?v)))
+) 
+
+(:durative-action charge
+	:parameters (?v - robot)
+	:duration ( = ?duration 10)
+	:condition (and
+		(at start (docked ?v)))
+	:effect (and
+		(at end (battery_charged ?v)))
+)
+
+(:durative-action charge
+	:parameters (?v - robot)
+	:duration ( = ?duration 10)
+	:condition (and
+		(at start (docked ?v)))
+	:effect (and
+		(at end (battery_charged ?v)))
 )
 
 )

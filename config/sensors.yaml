@@ -1,9 +1,8 @@
-functions:
-
 topics:
-  battery_charged:
-    params:
-      - turtlebot
-    topic: /battery/voltage
-    msg_type: std_msgs/Float32
-    operation: msg.data < 10.0
+    battery_charged:
+      params:
+          - turtlebot
+      topic: /battery/voltage
+      msg_type: std_msgs/Float32
+      operation: msg.data > 10.0
+
