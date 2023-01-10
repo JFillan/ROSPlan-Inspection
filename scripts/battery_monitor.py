@@ -13,7 +13,7 @@ def talker(data):
     pub = rospy.Publisher('battery/consumer/0', Float32, queue_size=10) # Publish to the power consumption topic
     rate = rospy.Rate(10) # 10hz
     
-    pub.publish(200*abs(data.linear.x)) # Ajust to fit wanted power consumption
+    pub.publish(100*abs(data.linear.x)) # Ajust to fit wanted power consumption
     rate.sleep()
 
 
