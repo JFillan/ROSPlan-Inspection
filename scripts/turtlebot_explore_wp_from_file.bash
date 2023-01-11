@@ -28,6 +28,8 @@ param="$param
   - {key: 'v', value: 'turtlebot'}
   - {key: 'wp', value: 'wp0'}
   function_value: 0.0";
+for i in 1 2
+do
 param_type="$param_type
 - 0";
 param="$param
@@ -36,9 +38,9 @@ param="$param
   instance_name: ''
   attribute_name: 'charge_at'
   values:
-  - {key: 'wp', value: 'wp2'}
+  - {key: 'wp', value: 'wp$i'}
   function_value: 0.0";
-
+done;
 rosservice call /rosplan_knowledge_base/update_array "
 $param_type
 $param"

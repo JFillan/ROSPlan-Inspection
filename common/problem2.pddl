@@ -8,11 +8,13 @@
     (robot_at turtlebot wp0)
 
 
+    (undocked turtlebot)
 
 
-    (dock_at wp2)
+    (charge_at wp1)
+    (charge_at wp2)
 
-    (not (battery_charged turtlebot))
+
 
     (= (distance wp0 wp0) 0)
     (= (distance wp1 wp0) 4.48219)
@@ -54,8 +56,8 @@
 
 )
 (:goal (and
-    (visited wp3)
-    (visited wp4)
-    (visited wp5)
+    (photographed wp3)
+    (photographed wp4)
+    (photographed wp5)
 ))
 )

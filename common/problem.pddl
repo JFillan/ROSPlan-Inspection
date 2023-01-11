@@ -5,7 +5,7 @@
     turtlebot - robot
 )
 (:init
-    ;(undocked turtlebot)
+    (undocked turtlebot)
     (= (speed turtlebot) 1)
     (= (max_range turtlebot) 20)
     (= (state_of_charge turtlebot) 100)
@@ -13,8 +13,8 @@
 )
 
 (:goal (and
-    (visited wp3)
-    (visited wp4)
-    (visited wp5)
+    (photographed wp3)
+    (photographed wp4)
+    (photographed wp5)
 ))
 )
