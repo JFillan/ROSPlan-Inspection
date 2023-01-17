@@ -25,7 +25,7 @@
 )
 
 
-;; Move to any waypoint, avoiding terrain
+; Move to any waypoint, avoiding terrain
 (:durative-action goto_waypoint
 	:parameters (?v - robot ?from ?to - waypoint)
 	:duration (= ?duration (/ (distance ?from ?to) 
@@ -44,6 +44,7 @@
 		(at end (robot_at ?v ?to)))
 )
 
+; Docking to charger
 (:durative-action dock
 	:parameters (?v - robot ?wp - waypoint)
 	:duration ( = ?duration 2)
@@ -56,6 +57,7 @@
 		(at start (not (undocked ?v))))
 )
 
+; Unocking from charger
 (:durative-action undock
 	:parameters (?v - robot ?wp - waypoint)
 	:duration ( = ?duration 2)
@@ -67,9 +69,11 @@
 		(at end (undocked ?v)))
 ) 
 
+; Charging battery. Duration based on battery percentage 
+;	and a charging speed of 2% capacity per second
 (:durative-action charge
 	:parameters (?v - robot ?wp - waypoint)
-	:duration ( = ?duration 10)
+	:duration ( = ?duration (* 0.5 (- 100 (state_of_charge ?v))))
 	:condition (and
 		(at start (charge_at ?wp))
 		(over all (docked ?v))
@@ -80,9 +84,10 @@
 		)
 )
 
+; Photographing an object of interest
 (:durative-action inspect
 	:parameters (?v - robot ?wp - waypoint)
-	:duration ( = ?duration 20)
+	:duration ( = ?duration 10)
 	:condition (and
 		(over all (robot_at ?v ?wp)))
 	:effect (and

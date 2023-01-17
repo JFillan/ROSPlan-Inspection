@@ -19,21 +19,21 @@ Other actions to have been discarded due to zero-durations include
 [01;34mNo analytic limits found, not considering limit effects of goal-only operators[00m
 75% of the ground temporal actions in this problem are compression-safe
 Initial heuristic = 9.000
-b (7.000 | 22.237)b (6.000 | 26.046)b (4.000 | 50.592)
+b (7.000 | 12.237)b (6.000 | 16.046)b (4.000 | 30.592)
 Resorting to best-first search
-b (7.000 | 22.237)b (6.000 | 26.046)b (6.000 | 24.474)b (4.000 | 50.592)b (3.000 | 75.483)b (2.000 | 80.732);;;; Solution Found
-; States evaluated: 288
-; Cost: 100.732
-; Time 0.32
+b (7.000 | 12.237)b (6.000 | 16.046)b (6.000 | 14.474)b (4.000 | 30.592)b (3.000 | 85.424)b (2.000 | 90.672);;;; Solution Found
+; States evaluated: 271
+; Cost: 100.672
+; Time 0.36
 0.000: (goto_waypoint turtlebot wp0 wp3)  [2.236]
-2.237: (inspect turtlebot wp3)  [20.000]
-22.238: (goto_waypoint turtlebot wp3 wp6)  [3.808]
-26.047: (goto_waypoint turtlebot wp6 wp4)  [4.545]
-30.592: (inspect turtlebot wp4)  [20.000]
-50.593: (goto_waypoint turtlebot wp4 wp2)  [4.187]
-54.780: (dock turtlebot wp2)  [2.000]
-56.780: (charge turtlebot wp2)  [10.000]
-66.780: (undock turtlebot wp1)  [2.000]
-68.780: (goto_waypoint turtlebot wp2 wp6)  [6.703]
-75.484: (goto_waypoint turtlebot wp6 wp5)  [5.248]
-80.732: (inspect turtlebot wp5)  [20.000]
+2.237: (inspect turtlebot wp3)  [10.000]
+12.238: (goto_waypoint turtlebot wp3 wp6)  [3.808]
+16.047: (goto_waypoint turtlebot wp6 wp4)  [4.545]
+20.592: (inspect turtlebot wp4)  [10.000]
+30.593: (goto_waypoint turtlebot wp4 wp2)  [4.187]
+34.780: (dock turtlebot wp2)  [2.000]
+36.780: (charge turtlebot wp2)  [39.940]
+76.721: (undock turtlebot wp1)  [2.000]
+78.721: (goto_waypoint turtlebot wp2 wp6)  [6.703]
+85.425: (goto_waypoint turtlebot wp6 wp5)  [5.248]
+90.672: (inspect turtlebot wp5)  [10.000]
