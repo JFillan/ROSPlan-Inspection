@@ -1,6 +1,6 @@
 (define (domain turtlebot3)
 
-(:requirements :strips :typing :fluents :durative-actions)
+(:requirements :strips :typing :fluents :durative-actions :disjunctive-preconditions )
 
 (:types
 	waypoint 
@@ -14,7 +14,9 @@
 	(docked ?v - robot) 
 	(charge_at ?wp - waypoint) ; Charger waypoint
 	(battery_charged ?v - robot)
-	(photographed ?wp - waypoint)
+	(photographed ?wp - waypoint) 
+	(home_at ?wp - waypoint) ; Home waypoint
+	(home ?v - robot)
 )
 
 (:functions
@@ -38,16 +40,30 @@
 		)
 	:effect (and
 		(at start (not (robot_at ?v ?from)))
-		(at start (decrease (state_of_charge ?v)
-                            (* 100 (/ (distance ?from ?to) (max_range ?v)))))
+		(at end (decrease (state_of_charge ?v)
+                            30))
 		(at end (visited ?to))
 		(at end (robot_at ?v ?to)))
+)
+
+; Docking to home position
+(:durative-action dock_home
+	:parameters (?v - robot ?wp - waypoint)
+	:duration ( = ?duration 2)
+	:condition (and
+		(at start (home_at ?wp))
+		(over all (robot_at ?v ?wp))
+		(at start (undocked ?v)))
+	:effect (and
+		(at end (docked ?v))
+		(at start (not (undocked ?v)))
+		(at end (home ?v)))
 )
 
 ; Docking to charger
 (:durative-action dock
 	:parameters (?v - robot ?wp - waypoint)
-	:duration ( = ?duration 2)
+	:duration ( = ?duration 1)
 	:condition (and
 		(at start (charge_at ?wp))
 		(over all (robot_at ?v ?wp))
@@ -60,9 +76,10 @@
 ; Unocking from charger
 (:durative-action undock
 	:parameters (?v - robot ?wp - waypoint)
-	:duration ( = ?duration 2)
+	:duration ( = ?duration 1)
 	:condition (and
 		(over all (charge_at ?wp))
+		(over all (robot_at ?v ?wp))
 		(at start (docked ?v)))
 	:effect (and
 		(at start (not (docked ?v)))

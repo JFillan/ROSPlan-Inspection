@@ -6,7 +6,7 @@
 )
 (:init
     (undocked turtlebot)
-    (= (speed turtlebot) 1)
+    (= (speed turtlebot) 0.1)
     (= (max_range turtlebot) 20)
     (= (state_of_charge turtlebot) 100)
 
