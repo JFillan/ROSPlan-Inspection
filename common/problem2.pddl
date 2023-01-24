@@ -5,12 +5,8 @@
     turtlebot - robot
 )
 (:init
-    (robot_at turtlebot wp3)
+    (robot_at turtlebot wp0)
 
-    (visited wp4)
-    (visited wp5)
-    (visited wp6)
-    (visited wp3)
 
     (undocked turtlebot)
 
@@ -19,8 +15,6 @@
     (charge_at wp2)
 
 
-    (photographed wp4)
-    (photographed wp5)
 
 
 
