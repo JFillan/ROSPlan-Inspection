@@ -1,7 +1,7 @@
 (define (problem task)
 (:domain turtlebot3)
 (:objects
-    wp0 wp1 wp2 wp3 wp4 wp5 wp6 - waypoint
+    wp0 wp1 wp2 wp3 wp4 wp5 - waypoint
     turtlebot - robot
 )
 (:init
@@ -13,7 +13,6 @@
 
     (charge_at wp1)
     (charge_at wp2)
-
 
 
 
@@ -44,30 +43,18 @@
     (= (distance wp5 wp4) 6.40312)
     (= (distance wp4 wp5) 6.40312)
     (= (distance wp5 wp5) 0)
-    (= (distance wp6 wp0) 2.54951)
-    (= (distance wp0 wp6) 2.54951)
-    (= (distance wp6 wp1) 6.84763)
-    (= (distance wp1 wp6) 6.84763)
-    (= (distance wp6 wp2) 6.70298)
-    (= (distance wp2 wp6) 6.70298)
-    (= (distance wp6 wp3) 3.80789)
-    (= (distance wp3 wp6) 3.80789)
-    (= (distance wp6 wp4) 4.54533)
-    (= (distance wp4 wp6) 4.54533)
-    (= (distance wp6 wp5) 5.24786)
-    (= (distance wp5 wp6) 5.24786)
-    (= (distance wp6 wp6) 0)
 
     (= (speed turtlebot) 0.1)
 
-    (= (max_range turtlebot) 20)
+    (= (min_charge turtlebot) 15)
 
-    (= (state_of_charge turtlebot) 100)
+    (= (state_of_charge turtlebot) 77)
+
 
 )
 (:goal (and
+    (photographed wp0)
     (photographed wp3)
-    (photographed wp4)
     (photographed wp5)
 ))
 )

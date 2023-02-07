@@ -7,14 +7,14 @@
 (:init
     (undocked turtlebot)
     (= (speed turtlebot) 0.1)
-    (= (max_range turtlebot) 20)
-    (= (state_of_charge turtlebot) 100)
+    (= (min_charge turtlebot) 15)
+    (= (state_of_charge turtlebot) 77)
 
 )
 
 (:goal (and
+    (photographed wp0)
     (photographed wp3)
-    (photographed wp4)
     (photographed wp5)
 ))
 )

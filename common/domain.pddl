@@ -13,7 +13,6 @@
 	(undocked ?v - robot)
 	(docked ?v - robot) 
 	(charge_at ?wp - waypoint) ; Charger waypoint
-	(battery_charged ?v - robot)
 	(photographed ?wp - waypoint) 
 	(home_at ?wp - waypoint) ; Home waypoint
 	(home ?v - robot)
@@ -22,8 +21,9 @@
 (:functions
 	(distance ?wp1 ?wp2 - waypoint) 
 	(speed ?v - robot)
-	(max_range ?v - robot)
-    (state_of_charge ?v - robot)
+	(min_charge ?v - robot)
+	(state_of_charge ?v - robot)
+	(traveled ?v - robot)
 )
 
 
@@ -34,16 +34,17 @@
 							  (speed ?v)))
 	:condition (and 
 		(at start (robot_at ?v ?from))
-		(at start (>= (state_of_charge ?v)
-                	(* 100 (/ (distance ?from ?to) (max_range ?v)))))
+		(at end (>= (- (state_of_charge ?v)(* 5 (distance ?from ?to))) (min_charge ?v)))
 		(over all (undocked ?v))
 		)
 	:effect (and
 		(at start (not (robot_at ?v ?from)))
-		(at end (decrease (state_of_charge ?v)
-                            30))
+		(at end (decrease (state_of_charge ?v) (* 5 (distance ?from ?to))))
+		;(at end (d0 (distecrease (state_of_charge ?v) 30))
 		(at end (visited ?to))
-		(at end (robot_at ?v ?to)))
+		(at end (robot_at ?v ?to))
+		;(at end (increase (traveled ?v) (distance ?from ?to)))
+		)
 )
 
 ; Docking to home position
