@@ -23,7 +23,7 @@
 	(speed ?v - robot)
 	(min_charge ?v - robot)
 	(state_of_charge ?v - robot)
-	(traveled ?v - robot)
+	(traveled)
 )
 
 
@@ -34,32 +34,31 @@
 							  (speed ?v)))
 	:condition (and 
 		(at start (robot_at ?v ?from))
-		(at end (>= (- (state_of_charge ?v)(* 5 (distance ?from ?to))) (min_charge ?v)))
+		(at end (>= (- (state_of_charge ?v)(* 4 (distance ?from ?to))) (min_charge ?v)))
 		(over all (undocked ?v))
 		)
 	:effect (and
 		(at start (not (robot_at ?v ?from)))
-		(at end (decrease (state_of_charge ?v) (* 5 (distance ?from ?to))))
-		;(at end (d0 (distecrease (state_of_charge ?v) 30))
+		(at end (decrease (state_of_charge ?v) (* 4 (distance ?from ?to))))
 		(at end (visited ?to))
 		(at end (robot_at ?v ?to))
-		;(at end (increase (traveled ?v) (distance ?from ?to)))
+		(at end (increase (traveled) (distance ?from ?to)))
 		)
 )
 
 ; Docking to home position
-(:durative-action dock_home
-	:parameters (?v - robot ?wp - waypoint)
-	:duration ( = ?duration 2)
-	:condition (and
-		(at start (home_at ?wp))
-		(over all (robot_at ?v ?wp))
-		(at start (undocked ?v)))
-	:effect (and
-		(at end (docked ?v))
-		(at start (not (undocked ?v)))
-		(at end (home ?v)))
-)
+; (:durative-action dock_home
+; 	:parameters (?v - robot ?wp - waypoint)
+; 	:duration ( = ?duration 2)
+; 	:condition (and
+; 		(at start (home_at ?wp))
+; 		(over all (robot_at ?v ?wp))
+; 		(at start (undocked ?v)))
+; 	:effect (and
+; 		(at end (docked ?v))
+; 		(at start (not (undocked ?v)))
+; 		(at end (home ?v)))
+; )
 
 ; Docking to charger
 (:durative-action dock
@@ -96,7 +95,7 @@
 		(at start (charge_at ?wp))
 		(over all (docked ?v))
 		(over all (robot_at ?v ?wp))
-		(at start (<= (state_of_charge ?v) 100)))
+		(at start (< (state_of_charge ?v) 100)))
 	:effect (and
 		(at end (assign (state_of_charge ?v) 100))
 		)

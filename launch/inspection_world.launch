@@ -1,11 +1,11 @@
 <launch>
   <!-- Launch file for the inspection world model in Gazebo -->
-  <arg name="x_pos" default="0.0"/>
-  <arg name="y_pos" default="0.0"/>
+  <arg name="x_pos" default="0.2"/>
+  <arg name="y_pos" default="-1.2"/>
   <arg name="z_pos" default="0.0"/>
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find inspection)/worlds/inspection_world.world"/>
+    <arg name="world_name" value="$(find inspection)/worlds/inspection2.world"/>
     <arg name="paused" value="false"/>
     <arg name="use_sim_time" value="true"/>
     <arg name="gui" value="true"/>
