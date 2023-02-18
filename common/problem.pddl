@@ -18,5 +18,5 @@
     (photographed wp5)
     (photographed wp6)
 ))
-(:metric minimize (traveled))
+;(:metric minimize (traveled))
 )

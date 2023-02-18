@@ -1,6 +1,6 @@
 (define (domain turtlebot3)
 
-(:requirements :strips :typing :fluents :durative-actions :disjunctive-preconditions )
+(:requirements :strips :typing :fluents :durative-actions)
 
 (:types
 	waypoint 
@@ -9,7 +9,6 @@
 
 (:predicates
 	(robot_at ?v - robot ?wp - waypoint)
-	(visited ?wp - waypoint)
 	(undocked ?v - robot)
 	(docked ?v - robot) 
 	(charge_at ?wp - waypoint) ; Charger waypoint
@@ -34,13 +33,12 @@
 							  (speed ?v)))
 	:condition (and 
 		(at start (robot_at ?v ?from))
-		(at end (>= (- (state_of_charge ?v)(* 4 (distance ?from ?to))) (min_charge ?v)))
+		(at start (>= (- (state_of_charge ?v)(* 3 (distance ?from ?to))) (min_charge ?v)))
 		(over all (undocked ?v))
 		)
 	:effect (and
 		(at start (not (robot_at ?v ?from)))
-		(at end (decrease (state_of_charge ?v) (* 4 (distance ?from ?to))))
-		(at end (visited ?to))
+		(at end (decrease (state_of_charge ?v) (* 3 (distance ?from ?to))))
 		(at end (robot_at ?v ?to))
 		(at end (increase (traveled) (distance ?from ?to)))
 		)
@@ -67,7 +65,8 @@
 	:condition (and
 		(at start (charge_at ?wp))
 		(over all (robot_at ?v ?wp))
-		(at start (undocked ?v)))
+		(at start (undocked ?v))
+		)
 	:effect (and
 		(at end (docked ?v))
 		(at start (not (undocked ?v))))
@@ -78,7 +77,7 @@
 	:parameters (?v - robot ?wp - waypoint)
 	:duration ( = ?duration 1)
 	:condition (and
-		(over all (charge_at ?wp))
+		(at start (charge_at ?wp))
 		(over all (robot_at ?v ?wp))
 		(at start (docked ?v)))
 	:effect (and
@@ -93,9 +92,9 @@
 	:duration ( = ?duration (* 0.5 (- 100 (state_of_charge ?v))))
 	:condition (and
 		(at start (charge_at ?wp))
+		(at start (robot_at ?v ?wp))
 		(over all (docked ?v))
-		(over all (robot_at ?v ?wp))
-		(at start (< (state_of_charge ?v) 100)))
+		(at start (<= (state_of_charge ?v) 100)))
 	:effect (and
 		(at end (assign (state_of_charge ?v) 100))
 		)
@@ -106,7 +105,8 @@
 	:parameters (?v - robot ?wp - waypoint)
 	:duration ( = ?duration 10)
 	:condition (and
-		(over all (robot_at ?v ?wp)))
+		(over all (robot_at ?v ?wp))
+		(at start (>= (- (state_of_charge ?v) 3) (min_charge ?v))))
 	:effect (and
 		(at end (photographed ?wp))
 		(at end (decrease (state_of_charge ?v) 3))

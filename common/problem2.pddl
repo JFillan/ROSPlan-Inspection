@@ -9,32 +9,30 @@
 
 
     (undocked turtlebot)
+    (= (traveled) 1)
 
 
+    (charge_at wp0)
     (charge_at wp1)
-    (charge_at wp2)
-
-
-
 
     (= (distance wp0 wp0) 100)
-    (= (distance wp1 wp0) 6.26259)
-    (= (distance wp0 wp1) 6.26259)
+    (= (distance wp1 wp0) 5.59464)
+    (= (distance wp0 wp1) 5.59464)
     (= (distance wp1 wp1) 100)
-    (= (distance wp2 wp0) 4.1)
-    (= (distance wp0 wp2) 4.1)
+    (= (distance wp2 wp0) 2.94109)
+    (= (distance wp0 wp2) 2.94109)
     (= (distance wp2 wp1) 5.80086)
     (= (distance wp1 wp2) 5.80086)
     (= (distance wp2 wp2) 100)
-    (= (distance wp3 wp0) 8.28613)
-    (= (distance wp0 wp3) 8.28613)
+    (= (distance wp3 wp0) 7.15122)
+    (= (distance wp0 wp3) 7.15122)
     (= (distance wp3 wp1) 4.66476)
     (= (distance wp1 wp3) 4.66476)
     (= (distance wp3 wp2) 5.17397)
     (= (distance wp2 wp3) 5.17397)
     (= (distance wp3 wp3) 100)
-    (= (distance wp4 wp0) 8.2134)
-    (= (distance wp0 wp4) 8.2134)
+    (= (distance wp4 wp0) 7.36614)
+    (= (distance wp0 wp4) 7.36614)
     (= (distance wp4 wp1) 2.28035)
     (= (distance wp1 wp4) 2.28035)
     (= (distance wp4 wp2) 6.73573)
@@ -42,8 +40,8 @@
     (= (distance wp4 wp3) 3.49857)
     (= (distance wp3 wp4) 3.49857)
     (= (distance wp4 wp4) 100)
-    (= (distance wp5 wp0) 7.03491)
-    (= (distance wp0 wp5) 7.03491)
+    (= (distance wp5 wp0) 7.01783)
+    (= (distance wp0 wp5) 7.01783)
     (= (distance wp5 wp1) 3.82753)
     (= (distance wp1 wp5) 3.82753)
     (= (distance wp5 wp2) 8.56154)
@@ -53,8 +51,8 @@
     (= (distance wp5 wp4) 5.60446)
     (= (distance wp4 wp5) 5.60446)
     (= (distance wp5 wp5) 100)
-    (= (distance wp6 wp0) 2.6)
-    (= (distance wp0 wp6) 2.6)
+    (= (distance wp6 wp0) 3.25576)
+    (= (distance wp0 wp6) 3.25576)
     (= (distance wp6 wp1) 5.50091)
     (= (distance wp1 wp6) 5.50091)
     (= (distance wp6 wp2) 5.99083)
@@ -66,8 +64,8 @@
     (= (distance wp6 wp5) 4.90408)
     (= (distance wp5 wp6) 4.90408)
     (= (distance wp6 wp6) 100)
-    (= (distance wp7 wp0) 2.30217)
-    (= (distance wp0 wp7) 2.30217)
+    (= (distance wp7 wp0) 2.54951)
+    (= (distance wp0 wp7) 2.54951)
     (= (distance wp7 wp1) 8.14125)
     (= (distance wp1 wp7) 8.14125)
     (= (distance wp7 wp2) 4.14367)
@@ -84,11 +82,9 @@
 
     (= (speed turtlebot) 0.1)
 
-    (= (min_charge turtlebot) 15)
+    (= (min_charge turtlebot) 46)
 
     (= (state_of_charge turtlebot) 100)
-
-
 )
 (:goal (and
     (photographed wp3)
