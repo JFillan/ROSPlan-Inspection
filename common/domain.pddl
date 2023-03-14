@@ -22,7 +22,7 @@
 	(speed ?v - robot)
 	(min_charge ?v - robot)
 	(state_of_charge ?v - robot)
-	(traveled)
+	(traveled ?v -robot)
 )
 
 
@@ -40,9 +40,29 @@
 		(at start (not (robot_at ?v ?from)))
 		(at end (decrease (state_of_charge ?v) (* 3 (distance ?from ?to))))
 		(at end (robot_at ?v ?to))
-		(at end (increase (traveled) (distance ?from ?to)))
+		(at end (increase (traveled ?v) (distance ?from ?to)))
 		)
 )
+
+; Move to any waypoint, avoiding terrain
+; (:durative-action goto_charger
+; 	:parameters (?v - robot ?from ?to - waypoint)
+; 	:duration (= ?duration (/ (distance ?from ?to) 
+; 							  (speed ?v)))
+; 	:condition (and 
+; 		(at start (robot_at ?v ?from))
+; 		(at start (>= (- (state_of_charge ?v)(* 3 (distance ?from ?to))) (min_charge ?v)))
+		
+; 		(over all (undocked ?v))
+; 		(over all (charge_at ?to))
+; 		)
+; 	:effect (and
+; 		(at start (not (robot_at ?v ?from)))
+; 		(at end (decrease (state_of_charge ?v) (* 3 (distance ?from ?to))))
+; 		(at end (robot_at ?v ?to))
+; 		(at end (increase (traveled) (distance ?from ?to)))
+; 		)
+; )
 
 ; Docking to home position
 ; (:durative-action dock_home
