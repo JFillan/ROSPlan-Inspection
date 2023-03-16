@@ -5,7 +5,6 @@
     turtlebot - robot
 )
 (:init
-    (robot_at turtlebot wp0)
 
     (undocked turtlebot)
 
