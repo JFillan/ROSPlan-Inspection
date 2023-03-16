@@ -17,7 +17,7 @@
 	(home ?v - robot)
 )
 
-(:functions
+(:functions 
 	(distance ?wp1 ?wp2 - waypoint) 
 	(speed ?v - robot)
 	(min_charge ?v - robot)

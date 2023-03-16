@@ -7,6 +7,10 @@ from rosplan_knowledge_msgs.srv import KnowledgeUpdateService
 from diagnostic_msgs.msg import KeyValue
 from std_srvs.srv import Empty
 
+
+# Prompt the operator every time a photo is taken (inspect action).
+# Operator rejects (pressing ENTER) or approves (waits for 10 sec).
+# If rejected, "photographed" predicate is removed and dispatch is canceled, triggering replanning.
 class InspectionManager:
 
     def __init__(self):
@@ -51,11 +55,7 @@ class InspectionManager:
         knowledge.attribute_name = "photographed"
         knowledge.values = [KeyValue("wp", wp)]
         try:
-            resp = update_kb(update_type=2, knowledge=knowledge)
-            if resp.success:
-                print("Predicate removed from the knowledge base.")
-            else:
-                print("Failed to remove predicate from the knowledge base.")
+            update_kb(update_type=2, knowledge=knowledge)
         except rospy.ServiceException as e:
             print("Service call failed:", e)
 
