@@ -44,40 +44,6 @@
 		)
 )
 
-; Move to any waypoint, avoiding terrain
-; (:durative-action goto_charger
-; 	:parameters (?v - robot ?from ?to - waypoint)
-; 	:duration (= ?duration (/ (distance ?from ?to) 
-; 							  (speed ?v)))
-; 	:condition (and 
-; 		(at start (robot_at ?v ?from))
-; 		(at start (>= (- (state_of_charge ?v)(* 3 (distance ?from ?to))) (min_charge ?v)))
-		
-; 		(over all (undocked ?v))
-; 		(over all (charge_at ?to))
-; 		)
-; 	:effect (and
-; 		(at start (not (robot_at ?v ?from)))
-; 		(at end (decrease (state_of_charge ?v) (* 3 (distance ?from ?to))))
-; 		(at end (robot_at ?v ?to))
-; 		(at end (increase (traveled) (distance ?from ?to)))
-; 		)
-; )
-
-; Docking to home position
-; (:durative-action dock_home
-; 	:parameters (?v - robot ?wp - waypoint)
-; 	:duration ( = ?duration 2)
-; 	:condition (and
-; 		(at start (home_at ?wp))
-; 		(over all (robot_at ?v ?wp))
-; 		(at start (undocked ?v)))
-; 	:effect (and
-; 		(at end (docked ?v))
-; 		(at start (not (undocked ?v)))
-; 		(at end (home ?v)))
-; )
-
 ; Docking to charger
 (:durative-action dock
 	:parameters (?v - robot ?wp - waypoint)

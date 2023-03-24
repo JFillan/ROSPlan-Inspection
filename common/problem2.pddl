@@ -1,10 +1,11 @@
 (define (problem task)
 (:domain turtlebot3)
 (:objects
-    wp0 wp1 wp2 wp3 wp4 wp5 wp6 wp7 - waypoint
+    wp0 wp1 wp2 wp3 wp4 wp5 wp6 wp7 wp8 - waypoint
     turtlebot - robot
 )
 (:init
+    (robot_at turtlebot wp8)
 
     (undocked turtlebot)
 
@@ -79,6 +80,23 @@
     (= (distance wp7 wp6) 4.82701)
     (= (distance wp6 wp7) 4.82701)
     (= (distance wp7 wp7) 100)
+    (= (distance wp8 wp0) 0.0707107)
+    (= (distance wp0 wp8) 0.0707107)
+    (= (distance wp8 wp1) 5.57539)
+    (= (distance wp1 wp8) 5.57539)
+    (= (distance wp8 wp2) 3.00416)
+    (= (distance wp2 wp8) 3.00416)
+    (= (distance wp8 wp3) 7.18088)
+    (= (distance wp3 wp8) 7.18088)
+    (= (distance wp8 wp4) 7.3624)
+    (= (distance wp4 wp8) 7.3624)
+    (= (distance wp8 wp5) 6.96455)
+    (= (distance wp5 wp8) 6.96455)
+    (= (distance wp8 wp6) 3.18512)
+    (= (distance wp6 wp8) 3.18512)
+    (= (distance wp8 wp7) 2.57391)
+    (= (distance wp7 wp8) 2.57391)
+    (= (distance wp8 wp8) 100)
 
     (= (speed turtlebot) 0.1)
 
