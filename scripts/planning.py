@@ -6,6 +6,7 @@ import actionlib
 import tf
 import tf2_ros
 import tf2_geometry_msgs
+import time
 from std_srvs.srv import Trigger, Empty
 from rosplan_knowledge_msgs.srv import *
 from rosplan_knowledge_msgs.msg import KnowledgeItem
@@ -16,7 +17,7 @@ from diagnostic_msgs.msg import KeyValue
 from rospkg import RosPack
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 from geometry_msgs.msg import PoseStamped
-from rosplan_interface_mapping.srv import AddWaypoint
+from rosplan_interface_mapping.srv import AddWaypoint,RemoveWaypoint
 
 
 def load_waypoints():
@@ -38,8 +39,8 @@ def add_initial_state_and_goals():
     req = KnowledgeUpdateServiceArrayRequest(update_type=[], knowledge=[])
     req.update_type.append(0)
     req.knowledge.append(KnowledgeItem(knowledge_type=0, instance_type='robot', instance_name='turtlebot', attribute_name='', function_value=0.0))
-    req.update_type.append(0)
-    req.knowledge.append(KnowledgeItem(knowledge_type=1, instance_type='', instance_name='', attribute_name='robot_at', values=[KeyValue("v", "turtlebot"), KeyValue("wp", "wp0")], function_value=0.0))
+    # req.update_type.append(0)
+    # req.knowledge.append(KnowledgeItem(knowledge_type=1, instance_type='', instance_name='', attribute_name='robot_at', values=[KeyValue("v", "turtlebot"), KeyValue("wp", "wp0")], function_value=0.0))
     for i in range(0, 2):
         req.update_type.append(0)
         req.knowledge.append(KnowledgeItem(knowledge_type=1, instance_type='', instance_name='', attribute_name='charge_at', values=[KeyValue("wp", "wp" + str(i))], function_value=0.0))
@@ -54,8 +55,7 @@ def planning_sequence():
         planner_service()
         # Check that the robot knows where it is
         if not check_robot_at("/home/jonas/catkin_ws/src/inspection/common/problem2.pddl"):
-            
-            planner_service()
+            continue
         # Make plan
         rospy.loginfo("Calling planner interface.")
         planner_service = rospy.ServiceProxy('/rosplan_planner_interface/planning_server', Empty)
@@ -71,6 +71,8 @@ def planning_sequence():
         goal_achieved = resp.goal_achieved
         if goal_achieved == False:
             rospy.logerr("Dispatch was canceled without all goals being achived. Replanning")
+            time.sleep(5)
+            
     
     rospy.loginfo("Goals achived! Dispatch complete")
     rospy.signal_shutdown("Intended work completed, shutting down the node")
@@ -80,6 +82,7 @@ def cancel_dispatch(data):
         rospy.logerr("Action failed, canceling dispatch")
         cancel_dispatch_service = rospy.ServiceProxy('/rosplan_plan_dispatcher/cancel_dispatch', Empty)
         cancel_dispatch_service()
+        
 
 def check_robot_at(filename):
     found = False
@@ -100,7 +103,7 @@ def check_robot_at(filename):
 
 def add_waypoint():
     rospy.loginfo("Adding new waypoint at the robot's current position.")
-    waypoint_index = len(rospy.get_param('/rosplan_demo_waypoints/wp'))
+    waypoint_index = len(rospy.get_param('/rosplan_demo_waypoints/wp')) 
     waypoint_name = "wp" + str(waypoint_index)
     
     rospy.wait_for_service('/rosplan_roadmap_server/add_waypoint')
@@ -111,9 +114,7 @@ def add_waypoint():
 
     # Extract the position and orientation from the Odometry message
     position = robot_odometry.pose.pose.position
-    print(position)
     orientation = robot_odometry.pose.pose.orientation
-    print(orientation)
 
     # Create a PoseStamped message
     robot_pose = PoseStamped()
@@ -127,7 +128,6 @@ def add_waypoint():
     try:
         transform = tf_buffer.lookup_transform("map", "odom", rospy.Time(0), rospy.Duration(1.0))
         robot_pose_transformed = tf2_geometry_msgs.do_transform_pose(robot_pose, transform)
-        print("Pose in map frame is: " + str(robot_pose_transformed))
     except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
         rospy.logwarn("Failed to transform robot's position from /odom to map frame.")
         return False
@@ -141,7 +141,6 @@ def add_waypoint():
     req.update_type.append(0)
     req.knowledge.append(KnowledgeItem(knowledge_type=1, instance_type='', instance_name='', attribute_name='robot_at', values=[KeyValue("v", "turtlebot"), KeyValue("wp", waypoint_name)], function_value=0.0))
     update_array_service(req)
-
 
 
 def main():

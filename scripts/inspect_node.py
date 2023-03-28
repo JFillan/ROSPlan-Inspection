@@ -35,12 +35,12 @@ class InspectionManager:
         if data.action_id == self.active_action_id and self.active_name == "inspect" and data.status == 2:
             try:
                 time_over = inputimeout(prompt="Photo taken of " + self.active_wp + ". Press ENTER to reject or wait to approve photo.", timeout=10)
-                print("\nPhoto rejected. Re-adding " + self.active_wp + " as goal and replanning.")
+                rospy.loginfo("\nPhoto rejected. Re-adding " + self.active_wp + " as goal and replanning.")
                 self.remove_predicate(self.active_wp)
                 self.should_cancel_dispatch = True
             except TimeoutOccurred:
                 time_over = ("\nPhoto approved, continuing mission.")
-                print(time_over)
+                rospy.loginfo(time_over)
 
     def cancel_callback(self, data):
         if self.should_cancel_dispatch and data.action_id == self.active_action_id + 1 and data.status == 2:
@@ -57,7 +57,7 @@ class InspectionManager:
         try:
             update_kb(update_type=2, knowledge=knowledge)
         except rospy.ServiceException as e:
-            print("Service call failed:", e)
+            rospy.loginfo("Service call failed:", e)
 
     def cancel_dispatch(self, data, action_id):
         if data.action_id == action_id+1 and data.status == 2:
@@ -65,9 +65,9 @@ class InspectionManager:
             cancel = rospy.ServiceProxy('/rosplan_plan_dispatcher/cancel_dispatch', Empty)
             try:
                 cancel()
-                print("Dispatch canceled. Replanning.")
+                rospy.loginfo("Dispatch canceled. Replanning.")
             except rospy.ServiceException as e:
-                print("Service call failed:", e)
+                rospy.loginfo("Service call failed:", e)
 
 if __name__ == '__main__':
     try:

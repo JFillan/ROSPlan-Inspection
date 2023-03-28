@@ -1,11 +1,11 @@
 (define (problem task)
 (:domain turtlebot3)
 (:objects
-    wp0 wp1 wp2 wp3 wp4 wp5 wp6 wp7 wp8 - waypoint
+    wp0 wp1 wp2 wp3 wp4 wp5 wp6 wp7 wp8 wp9 wp10 - waypoint
     turtlebot - robot
 )
 (:init
-    (robot_at turtlebot wp8)
+    (robot_at turtlebot wp10)
 
     (undocked turtlebot)
 
@@ -13,6 +13,9 @@
     (charge_at wp0)
     (charge_at wp1)
 
+    (photographed wp7)
+    (photographed wp2)
+    (photographed wp6)
 
 
 
@@ -97,14 +100,54 @@
     (= (distance wp8 wp7) 2.57391)
     (= (distance wp7 wp8) 2.57391)
     (= (distance wp8 wp8) 100)
+    (= (distance wp9 wp0) 1.91377)
+    (= (distance wp0 wp9) 1.91377)
+    (= (distance wp9 wp1) 7.0066)
+    (= (distance wp1 wp9) 7.0066)
+    (= (distance wp9 wp2) 2.33077)
+    (= (distance wp2 wp9) 2.33077)
+    (= (distance wp9 wp3) 7.42243)
+    (= (distance wp3 wp9) 7.42243)
+    (= (distance wp9 wp4) 8.44704)
+    (= (distance wp4 wp9) 8.44704)
+    (= (distance wp9 wp5) 8.87482)
+    (= (distance wp5 wp9) 8.87482)
+    (= (distance wp9 wp6) 5.07568)
+    (= (distance wp6 wp9) 5.07568)
+    (= (distance wp9 wp7) 1.82003)
+    (= (distance wp7 wp9) 1.82003)
+    (= (distance wp9 wp8) 1.978)
+    (= (distance wp8 wp9) 1.978)
+    (= (distance wp9 wp9) 100)
+    (= (distance wp10 wp0) 3.66674)
+    (= (distance wp0 wp10) 3.66674)
+    (= (distance wp10 wp1) 2.66177)
+    (= (distance wp1 wp10) 2.66177)
+    (= (distance wp10 wp10) 100)
+    (= (distance wp10 wp2) 5.16769)
+    (= (distance wp2 wp10) 5.16769)
+    (= (distance wp10 wp3) 6.45329)
+    (= (distance wp3 wp10) 6.45329)
+    (= (distance wp10 wp4) 4.91172)
+    (= (distance wp4 wp10) 4.91172)
+    (= (distance wp10 wp5) 3.45615)
+    (= (distance wp5 wp10) 3.45615)
+    (= (distance wp10 wp6) 2.83989)
+    (= (distance wp6 wp10) 2.83989)
+    (= (distance wp10 wp7) 6.12413)
+    (= (distance wp7 wp10) 6.12413)
+    (= (distance wp10 wp8) 3.62215)
+    (= (distance wp8 wp10) 3.62215)
+    (= (distance wp10 wp9) 5.45825)
+    (= (distance wp9 wp10) 5.45825)
 
     (= (speed turtlebot) 0.1)
 
     (= (min_charge turtlebot) 15)
 
-    (= (state_of_charge turtlebot) 100)
+    (= (state_of_charge turtlebot) 80.8655)
 
-    (= (traveled turtlebot) 0)
+    (= (traveled turtlebot) 10.1345)
 
 )
 (:goal (and
