@@ -12,9 +12,7 @@
 	(undocked ?v - robot)
 	(docked ?v - robot) 
 	(charge_at ?wp - waypoint) ; Charger waypoint
-	(photographed ?wp - waypoint) 
-	(home_at ?wp - waypoint) ; Home waypoint
-	(home ?v - robot)
+	(photographed ?wp - waypoint)
 )
 
 (:functions 

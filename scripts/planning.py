@@ -2,23 +2,23 @@
 import rospy
 import os
 import rosparam
-import actionlib
-import tf
 import tf2_ros
 import tf2_geometry_msgs
 import time
 from std_srvs.srv import Trigger, Empty
+from std_msgs.msg import Int32
 from rosplan_knowledge_msgs.srv import *
 from rosplan_knowledge_msgs.msg import KnowledgeItem
 from rosplan_dispatch_msgs.srv import DispatchService
-from rosplan_dispatch_msgs.msg import ActionFeedback
+from rosplan_dispatch_msgs.msg import ActionFeedback, ActionDispatch, GoalFailureCount, GoalFailureCountArray
 from nav_msgs.msg import Odometry
 from diagnostic_msgs.msg import KeyValue
 from rospkg import RosPack
-from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 from geometry_msgs.msg import PoseStamped
-from rosplan_interface_mapping.srv import AddWaypoint,RemoveWaypoint
+from rosplan_interface_mapping.srv import AddWaypoint
 
+dispatched_actions = {}
+goal_failure_count = {}
 
 def load_waypoints():
     # load waypoints into parameter server
@@ -39,8 +39,8 @@ def add_initial_state_and_goals():
     req = KnowledgeUpdateServiceArrayRequest(update_type=[], knowledge=[])
     req.update_type.append(0)
     req.knowledge.append(KnowledgeItem(knowledge_type=0, instance_type='robot', instance_name='turtlebot', attribute_name='', function_value=0.0))
-    # req.update_type.append(0)
-    # req.knowledge.append(KnowledgeItem(knowledge_type=1, instance_type='', instance_name='', attribute_name='robot_at', values=[KeyValue("v", "turtlebot"), KeyValue("wp", "wp0")], function_value=0.0))
+    req.update_type.append(0)
+    req.knowledge.append(KnowledgeItem(knowledge_type=1, instance_type='', instance_name='', attribute_name='robot_at', values=[KeyValue("v", "turtlebot"), KeyValue("wp", "wp0")], function_value=0.0))
     for i in range(0, 2):
         req.update_type.append(0)
         req.knowledge.append(KnowledgeItem(knowledge_type=1, instance_type='', instance_name='', attribute_name='charge_at', values=[KeyValue("wp", "wp" + str(i))], function_value=0.0))
@@ -78,11 +78,50 @@ def planning_sequence():
     rospy.signal_shutdown("Intended work completed, shutting down the node")
         
 def cancel_dispatch(data):
+    global goal_failure_count, dispatched_actions
     if data.status == 10:
         rospy.logerr("Action failed, canceling dispatch")
+
+        # Get the action details from the dispatched_actions dictionary
+        action_details = dispatched_actions.get(data.action_id)
+        if action_details is None:
+            rospy.logwarn("Failed to find action details for action_id: {}".format(data.action_id))
+            return
+
+        # Update the goal_failure_count dictionary
+        goal_name = None
+        action_params = {param.key: param.value for param in action_details.parameters}
+
+        if action_details.name == "goto_waypoint":
+            wp = action_params.get("to")
+            goal_name = ("photographed", wp)
+        elif action_details.name == "inspect":
+            wp = action_params.get("wp")
+            goal_name = ("photographed", wp)
+
+        if goal_name is not None:
+            if goal_name in goal_failure_count:
+                goal_failure_count[goal_name] += 1
+            else:
+                goal_failure_count[goal_name] = 1
+            print("Goal has failed " + str(goal_failure_count[goal_name]) + " times")
+            # If the goal has failed 3 times, remove it from the knowledge base
+            goal_failure_count_array = GoalFailureCountArray()
+            goal_failure_count_array.goal_failure_count_array = [GoalFailureCount(goal_predicate=predicate, waypoint=int(wp[2:]), fail_count=count) for (predicate, wp), count in goal_failure_count.items()]
+            goal_failure_count_pub.publish(goal_failure_count_array)
+            if goal_failure_count[goal_name] >= 3:
+                rospy.logwarn("Goal '{}' has failed 3 times. Removing it from the knowledge base.".format(goal_name))
+                remove_goal(goal_name)
+        
         cancel_dispatch_service = rospy.ServiceProxy('/rosplan_plan_dispatcher/cancel_dispatch', Empty)
         cancel_dispatch_service()
-        
+
+def remove_goal(goal_name):
+    goal_predicate, wp = goal_name
+    values = [KeyValue("wp", wp)]
+    kb_update_service = rospy.ServiceProxy('/rosplan_knowledge_base/update', KnowledgeUpdateService)
+    req = KnowledgeUpdateServiceRequest(update_type=3, knowledge=KnowledgeItem(knowledge_type=1, instance_type='', instance_name='', attribute_name=goal_predicate, values=values))
+    kb_update_service(req)
 
 def check_robot_at(filename):
     found = False
@@ -99,7 +138,6 @@ def check_robot_at(filename):
             added_new_waypoint = True
             return False
     else: return True
-
 
 def add_waypoint():
     rospy.loginfo("Adding new waypoint at the robot's current position.")
@@ -142,12 +180,27 @@ def add_waypoint():
     req.knowledge.append(KnowledgeItem(knowledge_type=1, instance_type='', instance_name='', attribute_name='robot_at', values=[KeyValue("v", "turtlebot"), KeyValue("wp", waypoint_name)], function_value=0.0))
     update_array_service(req)
 
+def action_dispatch_callback(data):
+    global dispatched_actions
+    dispatched_actions[data.action_id] = data
+
+def goal_failure_count_callback(data):
+    global goal_failure_count
+    goal_failure_count = {(gfc.goal_predicate, "wp" + str(gfc.waypoint)): gfc.fail_count for gfc in data.goal_failure_count_array}
 
 def main():
+    global goal_failure_count_pub
+    goal_failure_count_pub = rospy.Publisher('goal_failure_count', GoalFailureCountArray, queue_size=10)
+    goal_failure_count_array = GoalFailureCountArray()
+    goal_failure_count_array.goal_failure_count_array = list(goal_failure_count.values())
+    goal_failure_count_pub.publish(goal_failure_count_array)
     while not rospy.is_shutdown():
         rospy.Subscriber("rosplan_plan_dispatcher/action_feedback", ActionFeedback, cancel_dispatch)
+        rospy.Subscriber("rosplan_plan_dispatcher/action_dispatch", ActionDispatch, action_dispatch_callback)
+        rospy.Subscriber('goal_failure_count', GoalFailureCountArray, goal_failure_count_callback)
         planning_sequence()
         rospy.spin()
+
 
 if __name__ == '__main__':
     rospy.init_node('planning_node')
