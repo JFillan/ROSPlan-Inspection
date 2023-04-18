@@ -60,7 +60,7 @@ class InspectionManager:
 
                 if self.goal_failure_count[predicate_wp] >= 3:
                     rospy.logwarn("Goal '{}' has failed 3 times. Removing it from the knowledge base.".format(predicate_wp))
-                    self.remove_goal(self, predicate_wp)
+                    self.remove_goal(predicate_wp)
             
             except TimeoutOccurred:
                 time_over = ("\nPhoto approved, continuing mission.")
