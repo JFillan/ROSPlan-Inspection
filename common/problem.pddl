@@ -8,6 +8,9 @@
     (undocked turtlebot)
     (= (speed turtlebot) 0.1)
     (= (min_charge turtlebot) 15)
+    (= (charging_rate turtlebot) 0.5)
+    (= (discharge_rate turtlebot) 3)
+    (= (docking_duration turtlebot) 1)
     (= (traveled turtlebot) 0)
     (= (state_of_charge turtlebot) 100)
 
