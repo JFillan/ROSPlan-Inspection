@@ -72,8 +72,7 @@
 		(at end (undocked ?v)))
 ) 
 
-; Charging battery. Duration based on battery percentage 
-;	and a charging speed of 2% capacity per second
+; Charging battery
 (:durative-action charge
 	:parameters (?v - robot ?wp - waypoint)
 	:duration ( = ?duration (* (charging_rate ?v - robot) (- 100 (state_of_charge ?v))))
