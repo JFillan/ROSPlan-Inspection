@@ -20,6 +20,9 @@
 	(speed ?v - robot)
 	(min_charge ?v - robot)
 	(state_of_charge ?v - robot)
+	(charging_rate ?v - robot)
+	(discharge_rate ?v - robot)
+	(docking_duration ?v - robot)
 	(traveled ?v -robot)
 )
 
@@ -31,12 +34,12 @@
 							  (speed ?v)))
 	:condition (and 
 		(at start (robot_at ?v ?from))
-		(at start (>= (- (state_of_charge ?v)(* 3 (distance ?from ?to))) (min_charge ?v)))
+		(at start (>= (- (state_of_charge ?v)(* (discharge_rate ?v) (distance ?from ?to))) (min_charge ?v)))
 		(over all (undocked ?v))
 		)
 	:effect (and
 		(at start (not (robot_at ?v ?from)))
-		(at end (decrease (state_of_charge ?v) (* 3 (distance ?from ?to))))
+		(at end (decrease (state_of_charge ?v) (* (discharge_rate ?v) (distance ?from ?to))))
 		(at end (robot_at ?v ?to))
 		(at end (increase (traveled ?v) (distance ?from ?to)))
 		)
@@ -45,7 +48,7 @@
 ; Docking to charger
 (:durative-action dock
 	:parameters (?v - robot ?wp - waypoint)
-	:duration ( = ?duration 1)
+	:duration ( = ?duration (docking_duration ?v))
 	:condition (and
 		(at start (charge_at ?wp))
 		(over all (robot_at ?v ?wp))
@@ -59,7 +62,7 @@
 ; Unocking from charger
 (:durative-action undock
 	:parameters (?v - robot ?wp - waypoint)
-	:duration ( = ?duration 1)
+	:duration ( = ?duration (docking_duration ?v))
 	:condition (and
 		(at start (charge_at ?wp))
 		(over all (robot_at ?v ?wp))
@@ -69,11 +72,10 @@
 		(at end (undocked ?v)))
 ) 
 
-; Charging battery. Duration based on battery percentage 
-;	and a charging speed of 2% capacity per second
+; Charging battery
 (:durative-action charge
 	:parameters (?v - robot ?wp - waypoint)
-	:duration ( = ?duration (* 0.5 (- 100 (state_of_charge ?v))))
+	:duration ( = ?duration (* (charging_rate ?v - robot) (- 100 (state_of_charge ?v))))
 	:condition (and
 		(at start (charge_at ?wp))
 		(at start (robot_at ?v ?wp))
