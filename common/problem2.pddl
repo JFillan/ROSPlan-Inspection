@@ -1,21 +1,21 @@
 (define (problem task)
 (:domain turtlebot3)
 (:objects
-    wp0 wp1 wp2 wp3 wp4 wp5 wp6 wp7 - waypoint
+    wp0 wp1 wp2 wp3 wp4 wp5 wp6 wp7 wp8 wp9 wp10 - waypoint
     turtlebot - robot
 )
 (:init
-    (robot_at turtlebot wp1)
+    (robot_at turtlebot wp10)
 
+    (undocked turtlebot)
 
-    (docked turtlebot)
 
     (charge_at wp0)
     (charge_at wp1)
 
     (photographed wp2)
+    (photographed wp3)
     (photographed wp4)
-    (photographed wp5)
 
     (= (distance wp0 wp0) 100)
     (= (distance wp1 wp0) 5.59464)
@@ -81,12 +81,69 @@
     (= (distance wp7 wp6) 4.82701)
     (= (distance wp6 wp7) 4.82701)
     (= (distance wp7 wp7) 100)
+    (= (distance wp8 wp0) 5.72123)
+    (= (distance wp0 wp8) 5.72123)
+    (= (distance wp8 wp1) 3.6773)
+    (= (distance wp1 wp8) 3.6773)
+    (= (distance wp8 wp2) 7.5228)
+    (= (distance wp2 wp8) 7.5228)
+    (= (distance wp8 wp3) 8.22694)
+    (= (distance wp3 wp8) 8.22694)
+    (= (distance wp8 wp4) 5.80194)
+    (= (distance wp4 wp8) 5.80194)
+    (= (distance wp8 wp5) 1.40801)
+    (= (distance wp5 wp8) 1.40801)
+    (= (distance wp8 wp6) 3.50036)
+    (= (distance wp6 wp8) 3.50036)
+    (= (distance wp8 wp7) 7.95252)
+    (= (distance wp7 wp8) 7.95252)
+    (= (distance wp8 wp8) 100)
+    (= (distance wp9 wp0) 6.00375)
+    (= (distance wp0 wp9) 6.00375)
+    (= (distance wp9 wp1) 4.15993)
+    (= (distance wp1 wp9) 4.15993)
+    (= (distance wp9 wp2) 7.9237)
+    (= (distance wp2 wp9) 7.9237)
+    (= (distance wp9 wp3) 8.71923)
+    (= (distance wp3 wp9) 8.71923)
+    (= (distance wp9 wp4) 6.25979)
+    (= (distance wp4 wp9) 6.25979)
+    (= (distance wp9 wp5) 1.43003)
+    (= (distance wp5 wp9) 1.43003)
+    (= (distance wp9 wp6) 3.55317)
+    (= (distance wp6 wp9) 3.55317)
+    (= (distance wp9 wp7) 8.15383)
+    (= (distance wp7 wp9) 8.15383)
+    (= (distance wp9 wp8) 0.492443)
+    (= (distance wp8 wp9) 0.492443)
+    (= (distance wp9 wp9) 100)
+    (= (distance wp10 wp0) 6.01519)
+    (= (distance wp0 wp10) 6.01519)
+    (= (distance wp10 wp1) 4.20862)
+    (= (distance wp1 wp10) 4.20862)
+    (= (distance wp10 wp10) 100)
+    (= (distance wp10 wp2) 7.95)
+    (= (distance wp2 wp10) 7.95)
+    (= (distance wp10 wp3) 8.76542)
+    (= (distance wp3 wp10) 8.76542)
+    (= (distance wp10 wp4) 6.30971)
+    (= (distance wp4 wp10) 6.30971)
+    (= (distance wp10 wp5) 1.46031)
+    (= (distance wp5 wp10) 1.46031)
+    (= (distance wp10 wp6) 3.54154)
+    (= (distance wp6 wp10) 3.54154)
+    (= (distance wp10 wp7) 8.15552)
+    (= (distance wp7 wp10) 8.15552)
+    (= (distance wp10 wp8) 0.538516)
+    (= (distance wp8 wp10) 0.538516)
+    (= (distance wp10 wp9) 0.05)
+    (= (distance wp9 wp10) 0.05)
 
     (= (speed turtlebot) 0.1)
 
     (= (min_charge turtlebot) 15)
 
-    (= (state_of_charge turtlebot) 45.2419)
+    (= (state_of_charge turtlebot) 79.3864)
 
     (= (charging_rate turtlebot) 0.5)
 
@@ -94,13 +151,13 @@
 
     (= (docking_duration turtlebot) 1)
 
-    (= (traveled turtlebot) 36.7581)
+    (= (traveled turtlebot) 11.6136)
 
 )
 (:goal (and
     (photographed wp2)
+    (photographed wp3)
     (photographed wp4)
-    (photographed wp5)
     (photographed wp6)
     (photographed wp7)
 ))

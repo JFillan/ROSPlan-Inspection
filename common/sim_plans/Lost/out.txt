@@ -1,0 +1,10 @@
+[ERROR] [1683215359.293286, 7474.611000]: Action failed, canceling dispatch
+Goal has failed 2 times
+[ERROR] [1683215359.603718, 7474.805000]: Dispatch was canceled without all goals being achived. Replanning
+[INFO] [1683215364.612317, 7478.001000]: Calling problem generator.
+[INFO] [1683215365.064246, 7478.266000]: Robot does not know where it is! Adding a new waypoint at its current position.
+[INFO] [1683215365.070136, 7478.267000]: Adding new waypoint at the robot's current position.
+[INFO] [1683215366.158025, 7478.905000]: Calling problem generator.
+[INFO] [1683215366.585832, 7479.176000]: Calling planner interface.
+[INFO] [1683215366.653569, 7479.205000]: Calling plan parser.
+[INFO] [1683215366.850537, 7479.327000]: Calling plan dispatcher.
