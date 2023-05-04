@@ -25,5 +25,5 @@
     (photographed wp7)
 
 ))
-(:metric minimize (traveled))
+(:metric minimize (traveled turtlebot))
 )

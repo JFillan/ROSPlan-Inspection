@@ -5,17 +5,15 @@
     turtlebot - robot
 )
 (:init
-    (robot_at turtlebot wp1)
+    (robot_at turtlebot wp4)
 
+    (undocked turtlebot)
 
-    (docked turtlebot)
 
     (charge_at wp0)
     (charge_at wp1)
 
     (photographed wp2)
-    (photographed wp4)
-    (photographed wp5)
 
     (= (distance wp0 wp0) 100)
     (= (distance wp1 wp0) 5.59464)
@@ -86,7 +84,7 @@
 
     (= (min_charge turtlebot) 15)
 
-    (= (state_of_charge turtlebot) 45.2419)
+    (= (state_of_charge turtlebot) 82.3864)
 
     (= (charging_rate turtlebot) 0.5)
 
@@ -94,11 +92,12 @@
 
     (= (docking_duration turtlebot) 1)
 
-    (= (traveled turtlebot) 36.7581)
+    (= (traveled turtlebot) 11.6136)
 
 )
 (:goal (and
     (photographed wp2)
+    (photographed wp3)
     (photographed wp4)
     (photographed wp5)
     (photographed wp6)

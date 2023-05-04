@@ -75,7 +75,7 @@
 ; Charging battery
 (:durative-action charge
 	:parameters (?v - robot ?wp - waypoint)
-	:duration ( = ?duration (* (charging_rate ?v - robot) (- 100 (state_of_charge ?v))))
+	:duration ( = ?duration (* (charging_rate ?v) (- 100 (state_of_charge ?v))))
 	:condition (and
 		(at start (charge_at ?wp))
 		(at start (robot_at ?v ?wp))

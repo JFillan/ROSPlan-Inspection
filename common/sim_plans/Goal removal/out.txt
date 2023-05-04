@@ -1,0 +1,25 @@
+jonas@jonas-IdeaPad:~$ rosrun inspection inspect_node.py 
+Photo taken of wp2. Press ENTER to reject or wait to approve photo.
+Photo approved, continuing mission.
+Photo taken of wp3. Press ENTER to reject or wait to approve photo.
+
+Photo rejected. Re-adding wp3 as goal and replanning.
+Dispatch canceled. Replanning.
+Photo taken of wp4. Press ENTER to reject or wait to approve photo.
+Photo approved, continuing mission.
+Photo taken of wp3. Press ENTER to reject or wait to approve photo.
+
+Photo rejected. Re-adding wp3 as goal and replanning.
+Dispatch canceled. Replanning.
+Photo taken of wp5. Press ENTER to reject or wait to approve photo.
+Photo approved, continuing mission.
+Photo taken of wp3. Press ENTER to reject or wait to approve photo.
+
+Photo rejected. Re-adding wp3 as goal and replanning.
+[WARN] [1682602842.292471, 8277.108000]: Goal '('photographed', 'wp3')' has failed 3 times. Removing it from the knowledge base.
+Dispatch canceled. Replanning.
+Photo taken of wp6. Press ENTER to reject or wait to approve photo.
+Photo approved, continuing mission.
+Photo taken of wp7. Press ENTER to reject or wait to approve photo.
+Photo approved, continuing mission.
+
