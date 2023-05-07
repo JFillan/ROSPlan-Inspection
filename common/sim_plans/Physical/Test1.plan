@@ -1,0 +1,30 @@
+Number of literals: 16
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+[01;34mNo analytic limits found, not considering limit effects of goal-only operators[00m
+Pruning (goto_waypoint turtlebot wp0 wp0) - never appeared in initial RPG
+Pruning (goto_waypoint turtlebot wp1 wp1) - never appeared in initial RPG
+Pruning (goto_waypoint turtlebot wp2 wp2) - never appeared in initial RPG
+Pruning (goto_waypoint turtlebot wp3 wp3) - never appeared in initial RPG
+Pruning (goto_waypoint turtlebot wp4 wp4) - never appeared in initial RPG
+Pruning (goto_waypoint turtlebot wp5 wp5) - never appeared in initial RPG
+Pruning (goto_waypoint turtlebot wp6 wp6) - never appeared in initial RPG
+7% of the ground temporal actions in this problem are compression-safe
+Initial heuristic = 14.000
+b (13.000 | 10.000)b (12.000 | 10.000)b (11.000 | 27.358)b (10.000 | 27.358)b (8.000 | 37.359)b (7.000 | 54.048)b (6.000 | 64.049)b (5.000 | 80.738)
+Resorting to best-first search
+b (13.000 | 10.000)b (12.000 | 10.000)b (11.000 | 27.358)b (10.000 | 27.358)b (8.000 | 37.359)b (7.000 | 54.048)b (6.000 | 64.049)b (5.000 | 80.738)b (4.000 | 118.335)b (3.000 | 157.873)b (2.000 | 157.873);;;; Solution Found
+; States evaluated: 114
+; Cost: 5.662
+; Time 0.04
+0.000: (inspect turtlebot wp4)  [10.000]
+10.001: (goto_waypoint turtlebot wp4 wp3)  [17.357]
+27.359: (inspect turtlebot wp3)  [10.000]
+37.360: (goto_waypoint turtlebot wp3 wp5)  [16.688]
+54.049: (inspect turtlebot wp5)  [10.000]
+64.050: (goto_waypoint turtlebot wp5 wp1)  [16.621]
+80.671: (dock turtlebot wp1)  [1.000]
+81.671: (charge turtlebot wp1)  [35.664]
+117.335: (undock turtlebot wp1)  [1.000]
+118.335: (goto_waypoint turtlebot wp1 wp6)  [39.538]
+157.874: (inspect turtlebot wp6)  [10.000]

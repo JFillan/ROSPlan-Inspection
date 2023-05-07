@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- Physical Turtlebot3 inspection mission with ROSPlan. Launches all important nodes of the system -->
+
+    <!-- Arguments -->
+    <arg name="map_file" default="$(find inspection)/maps/map.yaml"/>
+    <arg name="gazebo_gui" default="false"/>
+
+    <!-- Simulation world-->
+    <!-- <include file="$(find inspection)/launch/inspection_world.launch" >
+    </include> -->
+
+    <!-- Roadmap (waypoint generation) -->
+    <include file="$(find rosplan_interface_mapping)/launch/rosplan_roadmap_server.launch" />
+
+    <!-- Turtlebot3 navigation: move base, amcl (localisation) -->
+    <include file="$(find turtlebot3_navigation)/launch/turtlebot3_navigation.launch" >
+        <arg name="map_file" value="/home/jonas/catkin_ws/src/inspection/maps/physical.yaml"/>
+        <arg name="open_rviz" value="false"/>
+    </include>
+
+    <!-- ROSPlan -->
+    <include file="$(find rosplan_planning_system)/launch/interfaced_planning_system.launch" >
+        <arg name="domain_path" value="$(find inspection)/common/domain.pddl" />
+        <!-- load a particular initial state into KB at startup (optional) -->
+        <arg name="problem_path" value="$(find inspection)/common/problem.pddl" />
+        <!-- planner will produce output plan and write to this location with file name plan.pddl -->
+        <arg name="data_path" value="$(find inspection)/common/" />
+    </include>
+
+    <!-- ROSPlan move_base action interface, makes link between ROSPlan dispatcher and hardware -->
+    <node pkg="rosplan_interface_movebase" type="rpmovebase" name="rosplan_interface_movebase" respawn="false" output="screen">
+        <param name="knowledge_base" value="rosplan_knowledge_base" />
+        <param name="action_server" value="/move_base" />
+        <param name="pddl_action_name" value="goto_waypoint" />
+        <param name="action_dispatch_topic" value="/rosplan_plan_dispatcher/action_dispatch" />
+        <param name="action_feedback_topic" value="/rosplan_plan_dispatcher/action_feedback" />
+    </node>
+
+    <!-- Visualisation of robot sensor data with Rviz -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rosplan_turtlebot3_demo)/config/turtlebot3.rviz" />
+
+
+</launch>
