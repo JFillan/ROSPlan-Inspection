@@ -92,10 +92,10 @@
 	:duration ( = ?duration 10)
 	:condition (and
 		(over all (robot_at ?v ?wp))
-		(at start (>= (- (state_of_charge ?v) 1.5) (min_charge ?v))))
+		(at start (>= (- (state_of_charge ?v) 3) (min_charge ?v))))
 	:effect (and
 		(at end (photographed ?wp))
-		(at end (decrease (state_of_charge ?v) 1.5))
+		(at end (decrease (state_of_charge ?v) 3))
 		)
 )
 )
