@@ -1,0 +1,29 @@
+
+; Version LPG-td-1.4
+; Seed 4045793
+; Command line: /home/jonas/Documents/rosplan/rosplan_planning_system/common/bin/lpg-td -o /tmp/domain--10781-Bq7HFY6t6nyr-.pddl -f /tmp/problem--10781-0uO3myrDjRPb-.pddl -n 20 -cputime 60 -out /home/jonas/catkin_ws/src/inspection/common/sim_plans/PDDL test/LPG/1/plan.plan 
+; Problem /tmp/problem--10781-0uO3myrDjRPb-.pddl
+; Time 6.85
+; Search time 6.85
+; Parsing time 0.00
+; Mutex time 0.00
+; MetricValue 26.90
+
+0.0002:   (GOTO_WAYPOINT TURTLEBOT WP0 WP2) [29.4109]
+29.4114:   (INSPECT TURTLEBOT WP2) [10.0000]
+39.4119:   (GOTO_WAYPOINT TURTLEBOT WP2 WP7) [41.4367]
+80.8489:   (INSPECT TURTLEBOT WP7) [10.0000]
+90.8494:   (GOTO_WAYPOINT TURTLEBOT WP7 WP0) [25.4951]
+116.3447:   (DOCK TURTLEBOT WP0) [3.0000]
+119.3449:   (CHARGE TURTLEBOT WP0) [20.7685]
+140.1139:   (UNDOCK TURTLEBOT WP0) [3.0000]
+143.1142:   (GOTO_WAYPOINT TURTLEBOT WP0 WP6) [32.5576]
+175.6720:   (INSPECT TURTLEBOT WP6) [10.0000]
+185.6725:   (GOTO_WAYPOINT TURTLEBOT WP6 WP5) [49.0408]
+234.7136:   (INSPECT TURTLEBOT WP5) [10.0000]
+244.7141:   (GOTO_WAYPOINT TURTLEBOT WP5 WP4) [56.0446]
+300.7589:   (INSPECT TURTLEBOT WP4) [10.0000]
+310.7594:   (GOTO_WAYPOINT TURTLEBOT WP4 WP3) [34.9857]
+345.7453:   (INSPECT TURTLEBOT WP3) [10.0000]
+
+
