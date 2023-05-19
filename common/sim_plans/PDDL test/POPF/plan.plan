@@ -1,0 +1,23 @@
+;;!domain: turtlebot3
+;;!problem: task
+
+0.00000: (goto_waypoint turtlebot wp0 wp2) [29.41100]
+29.41200: (inspect turtlebot wp2) [10.00000]
+39.41300: (goto_waypoint turtlebot wp2 wp3) [51.74000]
+91.15400: (inspect turtlebot wp3) [10.00000]
+101.15500: (goto_waypoint turtlebot wp3 wp4) [34.98600]
+136.14100: (inspect turtlebot wp4) [10.00000]
+146.14200: (goto_waypoint turtlebot wp4 wp0) [73.66100]
+219.80400: (dock turtlebot wp0) [3.00000]
+222.80400: (charge turtlebot wp0) [40.21000]
+263.01300: (undock turtlebot wp0) [3.00000]
+266.01300: (goto_waypoint turtlebot wp0 wp5) [70.17800]
+336.19300: (inspect turtlebot wp5) [10.00000]
+346.19400: (goto_waypoint turtlebot wp5 wp6) [49.04100]
+395.23500: (inspect turtlebot wp6) [10.00000]
+405.23600: (goto_waypoint turtlebot wp6 wp7) [48.27000]
+453.50700: (inspect turtlebot wp7) [10.00000]
+
+; Makespan: 463.507
+; Metric: 0
+; States evaluated: 46

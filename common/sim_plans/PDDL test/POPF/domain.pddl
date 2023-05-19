@@ -11,7 +11,7 @@
 	(robot_at ?v - robot ?wp - waypoint)
 	(undocked ?v - robot)
 	(docked ?v - robot) 
-	(charge_at ?wp - waypoint)
+	(charge_at ?wp - waypoint) ; Charger waypoint
 	(photographed ?wp - waypoint)
 )
 
